@@ -6,8 +6,8 @@ PKG_LIBDIR := $(shell $(PG_CONFIG) --pkglibdir)
 # Lua specific
 
 # General
-LUA_INCDIR ?= /usr/include/lua5.1
-LUALIB ?= -L/usr/local/lib -llua5.1
+LUA_INCDIR ?= $(pkg-config --cflags luajit)
+LUALIB ?= $(pkg-config --libs luajit)
 
 # LuaJIT
 #LUA_INCDIR = /usr/local/include/luajit-2.0
@@ -56,3 +56,4 @@ SHLIB_LINK = $(LUALIB)
 
 PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)
+]
