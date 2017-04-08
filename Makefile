@@ -6,7 +6,7 @@ PKG_LIBDIR := $(shell $(PG_CONFIG) --pkglibdir)
 # Lua specific
 
 # General
-LUA_INCDIR ?= $(pkg-config --cflags luajit)
+LUA_INCDIR ?= -I/nix/store/22cqdbrq93baa2xwh74bn998mf8z8ywk-luajit-2.0.4/include/luajit-2.0
 LUALIB ?= $(pkg-config --libs luajit)
 
 # LuaJIT
@@ -51,9 +51,8 @@ pllua_pgfunc.o \
 pllua_subxact.o \
 pllua_errors.o
 
-PG_CPPFLAGS = -I$(LUA_INCDIR) #-DPLLUA_DEBUG
+PG_CPPFLAGS = $(LUA_INCDIR) #-DPLLUA_DEBUG
 SHLIB_LINK = $(LUALIB)
 
 PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)
-]
